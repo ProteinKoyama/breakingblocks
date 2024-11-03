@@ -10,8 +10,6 @@ func _process(_float) -> void:
 
 func _on_Ball_body_entered(body):
 	print("enterd")
-	var collision_normal = (position - body.position).normalized
-	linear_velocity = linear_velocity.bounce(collision_normal)
 	if body.is_in_group("Block"):
 		body.queue_free() 
 		linear_velocity = linear_velocity.normalized() * (initial_speed + randf_range(0,50))

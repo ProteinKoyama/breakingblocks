@@ -3,9 +3,10 @@
 [ext_resource type="Script" path="res://paddle.gd" id="1_ohbtq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ec0u4"]
-size = Vector2(119, 8)
+size = Vector2(119, 11)
 
 [node name="Paddle" type="CharacterBody2D"]
+collision_mask = 2
 script = ExtResource("1_ohbtq")
 metadata/_edit_group_ = true
 
@@ -14,5 +15,5 @@ offset_right = 120.0
 offset_bottom = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(60.5, 5)
+position = Vector2(60.5, 4.5)
 shape = SubResource("RectangleShape2D_ec0u4")
