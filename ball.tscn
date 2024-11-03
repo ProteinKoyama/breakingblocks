@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwiyb5ullengg"]
+
+[ext_resource type="Script" path="res://ball.gd" id="1_8f1j3"]
+[ext_resource type="Texture2D" uid="uid://chucmj4py3qdn" path="res://playerGrey_up1.png" id="1_pg50m"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lpqpy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kyj15"]
+radius = 14.4222
+
+[node name="Ball" type="RigidBody2D"]
+collision_layer = 2
+physics_material_override = SubResource("PhysicsMaterial_lpqpy")
+gravity_scale = 0.0
+script = ExtResource("1_8f1j3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_pg50m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kyj15")
+
+[connection signal="body_entered" from="." to="." method="_on_Ball_body_entered"]
