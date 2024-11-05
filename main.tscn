@@ -72,6 +72,7 @@ position = Vector2(488, 348)
 shape = SubResource("RectangleShape2D_ib28y")
 
 [node name="DeadZone" type="Area2D" parent="."]
+visibility_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeadZone"]
 visibility_layer = 2
@@ -120,4 +121,3 @@ text = "Start"
 [connection signal="timeout" from="HUD/StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="pressed" from="HUD/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="HUD/StartButton" to="Ball" method="_on_start_button_pressed"]
-[connection signal="body_entered" from="Ball" to="Ball" method="_on_body_entered"]

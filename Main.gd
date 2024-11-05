@@ -8,7 +8,9 @@ var block_start_position
 var BallInitialSpeed = 300
 
 func game_over():
-	pass
+	$Ball.hide()
+	$Ball.position = $BallSawnPosition
+	$HUD/StartButton.show()
 func _ready():
 	#new_game()
 	score = 0
@@ -44,7 +46,6 @@ func _on_dead_zone_body_entered(body):
 	print("enterd")
 	if $Ball is RigidBody2D:
 		print("gameover")
-		$Ball.hide()
 
 func _on_start_button_pressed():
 	$HUD/StartButton.hide()
