@@ -6,12 +6,13 @@ var initial_speed = 400
 func _ready():
 	pass
 func _process(_float) -> void:
+	if abs(linear_velocity.y) <= abs(1):
+		linear_velocity.y = randf_range(-100,-300)
+		("test")
 	pass
 
 func _on_body_entered(body):
 	print(linear_velocity)
-	if linear_velocity <= Vector2(abs(1),abs(1)):
-		linear_velocity.y = 300
 	if body.is_in_group("Block"):
 		body.queue_free() 
 		linear_velocity = linear_velocity.normalized() * (initial_speed + randf_range(0,50))

@@ -1,8 +1,8 @@
 extends Node
 @export var block_scene: PackedScene
 var score
-var block_rows = 3
-var block_columns = 4
+var block_rows = 5
+var block_columns = 5
 var block_spacing = Vector2(100,50)
 var block_start_position
 var BallInitialSpeed = 300
