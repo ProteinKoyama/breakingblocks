@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://block.gd" id="1_5ujm4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q8oni"]
-size = Vector2(49, 10)
+size = Vector2(50, 11)
 
 [node name="Block" type="StaticBody2D" groups=["Block"]]
 collision_mask = 2

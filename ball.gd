@@ -2,17 +2,18 @@ extends RigidBody2D
 
 var initial_velocity = Vector2(randf_range(-300,300),randf_range(-200,-300))
 var initial_speed = 400
+var screen_size
 
 func _ready():
-	pass
+	screen_size = get_viewport_rect().size
+	
 func _process(_float) -> void:
 	if abs(linear_velocity.y) <= abs(1):
 		linear_velocity.y = randf_range(-100,-300)
-		("test")
-	pass
+	if abs(linear_velocity.x) <= abs(1):
+		linear_velocity.x = randf_range(-100,-100)
 
 func _on_body_entered(body):
-	print(linear_velocity)
 	if body.is_in_group("Block"):
 		body.queue_free() 
 		linear_velocity = linear_velocity.normalized() * (initial_speed + randf_range(0,50))

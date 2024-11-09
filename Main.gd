@@ -11,12 +11,13 @@ func game_over():
 	$Ball.hide()
 	$Ball.position = $BallSawnPosition
 	$HUD/StartButton.show()
+	$HUD/GameoverLabel.show()
 func _ready():
 	#new_game()
+	$HUD/GameoverLabel.hide()
 	score = 0
 	$Ball.hide()
 	$Paddle.hide()
-	
 func _physics_process(delta):
 	if !$Ball.visible:
 		$Ball.position = $BallSpawnPosition.position
@@ -43,9 +44,7 @@ func _process(_delta):
 	pass
 
 func _on_dead_zone_body_entered(body):
-	print("enterd")
-	if $Ball is RigidBody2D:
-		print("gameover")
+		game_over()
 
 func _on_start_button_pressed():
 	$HUD/StartButton.hide()
