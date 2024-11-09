@@ -72,6 +72,7 @@ position = Vector2(488, 348)
 shape = SubResource("RectangleShape2D_ib28y")
 
 [node name="DeadZone" type="Area2D" parent="."]
+visibility_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeadZone"]
 visibility_layer = 2

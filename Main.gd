@@ -8,7 +8,6 @@ var block_start_position
 var BallInitialSpeed = 300
 
 func game_over():
-	$Ball.hide()
 	$Ball.position = $BallSawnPosition
 	$HUD/StartButton.show()
 	$HUD/GameoverLabel.show()
@@ -18,15 +17,18 @@ func _ready():
 	score = 0
 	$Ball.hide()
 	$Paddle.hide()
+	
 func _physics_process(delta):
 	if !$Ball.visible:
 		$Ball.position = $BallSpawnPosition.position
+		$Ball.freeze = true
 	else: pass
 
 func _on_start_timer_timeout():
 	pass
 func new_game():
 	$Ball.show()
+	$Ball.freeze = false
 	$Ball.initial_speed = BallInitialSpeed
 	$HUD/StartTimer.start()
 	$Paddle.position = $PadleStartPosition.position - ( $Paddle/ColorRect.size / 2 )
@@ -44,7 +46,7 @@ func _process(_delta):
 	pass
 
 func _on_dead_zone_body_entered(body):
-		game_over()
+	game_over()
 
 func _on_start_button_pressed():
 	$HUD/StartButton.hide()
