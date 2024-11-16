@@ -8,7 +8,8 @@ var block_start_position
 var BallInitialSpeed = 300
 
 func game_over():
-	$Ball.position = $BallSawnPosition
+	print("gameover")
+	#$Ball.position = $BallSawnPosition.position
 	$HUD/StartButton.show()
 	$HUD/GameoverLabel.show()
 func _ready():
@@ -27,6 +28,8 @@ func _physics_process(delta):
 func _on_start_timer_timeout():
 	pass
 func new_game():
+	if $HUD/GameoverLabel.visible:
+		$HUD/GameoverLabel.hide()
 	$Ball.show()
 	$Ball.freeze = false
 	$Ball.initial_speed = BallInitialSpeed
@@ -45,9 +48,11 @@ func new_game():
 func _process(_delta):
 	pass
 
-func _on_dead_zone_body_entered(body):
-	game_over()
 
 func _on_start_button_pressed():
 	$HUD/StartButton.hide()
 	new_game() # Replace with function body.
+
+
+func _on_dead_zone_body_entered(body):
+	game_over()

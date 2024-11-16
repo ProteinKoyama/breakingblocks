@@ -9,12 +9,11 @@
 radius = 14.4222
 
 [node name="Ball" type="RigidBody2D"]
-collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_lpqpy")
 gravity_scale = 0.0
 continuous_cd = 1
-max_contacts_reported = 2
 contact_monitor = true
+max_contacts_reported = 2
 script = ExtResource("1_8f1j3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

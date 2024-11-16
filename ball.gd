@@ -1,4 +1,5 @@
 extends RigidBody2D
+@onready var tilemap = $Main/TileMap
 
 var initial_velocity = Vector2(randf_range(-300,300),randf_range(-200,-300))
 var initial_speed = 400
@@ -15,6 +16,12 @@ func _process(_float) -> void:
 		linear_velocity.x = randf_range(-100,-100)
 
 func _on_body_entered(body):
+	if body == tilemap:
+		var collision_point = position
+		var tile_coords = tilemap.world_to_map(collision_point)
+		
+	#	if tilemap.get_cell(0,tile_coords) != TileMap.INVALID_CELL:
+	#		tilemap.set_cell(0,tile_coords,TileMap.INVALID_CELL)
 	if body.is_in_group("Block"):
 		body.queue_free() 
 		linear_velocity = linear_velocity.normalized() * (initial_speed + randf_range(0,50))
@@ -31,4 +38,3 @@ func _integrate_forces(_state):
 
 func _on_start_button_pressed():
 	linear_velocity = initial_velocity.normalized() * initial_velocity
-
