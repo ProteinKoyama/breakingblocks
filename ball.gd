@@ -16,12 +16,12 @@ func _process(_float) -> void:
 		linear_velocity.x = randf_range(-100,-100)
 
 func _on_body_entered(body):
-	if body == tilemap:
+	if body is TileMap:
 		var collision_point = position
 		var tile_coords = tilemap.world_to_map(collision_point)
-		
-	#	if tilemap.get_cell(0,tile_coords) != TileMap.INVALID_CELL:
-	#		tilemap.set_cell(0,tile_coords,TileMap.INVALID_CELL)
+		if tilemap.get_cell(0, tile_coords) != -1:
+			tilemap.set_cell(0, tile_coords, -1)# タイルを無効化
+			print("タイル削除: ", tile_coords)
 	if body.is_in_group("Block"):
 		body.queue_free() 
 		linear_velocity = linear_velocity.normalized() * (initial_speed + randf_range(0,50))

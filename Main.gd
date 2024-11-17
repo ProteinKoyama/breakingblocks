@@ -37,11 +37,11 @@ func new_game():
 	$Paddle.position = $PadleStartPosition.position - ( $Paddle/ColorRect.size / 2 )
 	$Paddle.show()
 	
-	for row in range(block_rows):
-		for col in range(block_columns):
-			var block_instance = block_scene.instantiate()
-			block_instance.position = Vector2(col * block_spacing.x, row * block_spacing.y)
-			add_child(block_instance)
+	#for row in range(block_rows):
+		#for col in range(block_columns):
+			#var block_instance = block_scene.instantiate()
+			#block_instance.position = Vector2(col * block_spacing.x, row * block_spacing.y)
+			#add_child(block_instance)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

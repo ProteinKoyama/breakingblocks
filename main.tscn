@@ -132,9 +132,9 @@ grow_vertical = 2
 text = "GAME OVER"
 label_settings = SubResource("LabelSettings_anlan")
 
-[node name="Ball" parent="." instance=ExtResource("6_4mech")]
-
 [node name="BlockTileMaps" parent="." instance=ExtResource("6_5ldhk")]
+
+[node name="Ball" parent="." instance=ExtResource("6_4mech")]
 
 [connection signal="body_entered" from="DeadZone" to="." method="_on_dead_zone_body_entered"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
