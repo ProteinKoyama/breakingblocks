@@ -1,5 +1,8 @@
 extends Node
 @export var block_scene: PackedScene
+@onready var ball = $Ball
+@onready var blocktilemaps = $BlockTileMaps
+
 var score
 var block_rows = 5
 var block_columns = 5
@@ -15,9 +18,10 @@ func game_over():
 func _ready():
 	#new_game()
 	$HUD/GameoverLabel.hide()
+	$HUD/GameoverLabel.hide()
 	score = 0
-	$Ball.hide()
 	$Paddle.hide()
+	$Ball.hide()
 	
 func _physics_process(delta):
 	if !$Ball.visible:

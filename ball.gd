@@ -1,22 +1,24 @@
 extends RigidBody2D
-@onready var tilemap = $Main/TileMap
 
+@onready var tilemap = $Main/BlockTileMaps
 var initial_velocity = Vector2(randf_range(-300,300),randf_range(-200,-300))
-var initial_speed = 400
+var initial_speed = 300
 var screen_size
 var max_speed_multiplier = 1
 
 func _ready():
+	$ContactsTimer.start()
 	screen_size = get_viewport_rect().size
 	
 func _process(_float) -> void:
 	if abs(linear_velocity.y) <= abs(1):
-		linear_velocity.y = randf_range(-100,-300)
+		linear_velocity.y = randf_range(-200,-300)
 	if abs(linear_velocity.x) <= abs(1):
 		linear_velocity.x = randf_range(-100,-100)
 
 func _on_body_entered(body):
 	if body is TileMap:
+		print("tile")
 		var collision_point = position
 		var tile_coords = tilemap.world_to_map(collision_point)
 		if tilemap.get_cell(0, tile_coords) != -1:
@@ -38,3 +40,7 @@ func _integrate_forces(_state):
 
 func _on_start_button_pressed():
 	linear_velocity = initial_velocity.normalized() * initial_velocity
+
+
+func _on_contacts_timer_timeout() -> void:
+	pass

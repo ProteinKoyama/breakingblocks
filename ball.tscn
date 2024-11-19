@@ -23,4 +23,9 @@ texture = ExtResource("1_pg50m")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kyj15")
 
+[node name="ContactsTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.2
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="ContactsTimer" to="." method="_on_contacts_timer_timeout"]

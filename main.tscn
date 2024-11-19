@@ -134,6 +134,8 @@ label_settings = SubResource("LabelSettings_anlan")
 
 [node name="BlockTileMaps" parent="." instance=ExtResource("6_5ldhk")]
 
+[node name="BlockTileMaps" parent="BlockTileMaps" instance=ExtResource("6_5ldhk")]
+
 [node name="Ball" parent="." instance=ExtResource("6_4mech")]
 
 [connection signal="body_entered" from="DeadZone" to="." method="_on_dead_zone_body_entered"]
