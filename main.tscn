@@ -93,6 +93,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="StartTimer" type="Timer" parent="HUD"]
+wait_time = 2.0
 one_shot = true
 
 [node name="ScoreLabel" type="Label" parent="HUD"]

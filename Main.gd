@@ -7,12 +7,12 @@ var score
 var block_rows = 5
 var block_columns = 5
 var block_spacing = Vector2(100,50)
-var block_start_position
 var BallInitialSpeed = 300
 
 func game_over():
 	print("gameover")
-	$Ball.hide()
+	ball.hide()
+	ball.linear_velocity = Vector2.ZERO
 	$HUD/StartButton.show()
 	$HUD/GameoverLabel.show()
 func _ready():
@@ -21,32 +21,25 @@ func _ready():
 	$HUD/ReadyLabel.hide()
 	score = 0
 	$Paddle.hide()
-	$Ball.hide()
+	ball.hide()
 	
 func _physics_process(delta):
-	if !$Ball.visible:
-		$Ball.position = $BallSpawnPosition.position
-		$Ball.freeze = true
+	if !ball.visible:
+		ball.position = $BallSpawnPosition.position
+		ball.freeze = true
 	else: pass
-
-func _on_start_timer_timeout():
-	pass
+	
 func new_game():
+	print(ball.linear_velocity,ball.position)
 	$HUD/ReadyLabel.show()
 	$NewGameTimer.start()
+	ball.initial_speed = BallInitialSpeed
 	if $HUD/GameoverLabel.visible:
 		$HUD/GameoverLabel.hide()
-	$Ball.show()
-	$Ball.initial_speed = BallInitialSpeed
+	ball.show()
 	$HUD/StartTimer.start()
 	$Paddle.position = $PadleStartPosition.position - ( $Paddle/ColorRect.size / 2 )
 	$Paddle.show()
-	
-	#for row in range(block_rows):
-		#for col in range(block_columns):
-			#var block_instance = block_scene.instantiate()
-			#block_instance.position = Vector2(col * block_spacing.x, row * block_spacing.y)
-			#add_child(block_instance)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -64,5 +57,9 @@ func _on_dead_zone_body_entered(body):
 
 
 func _on_new_game_timer_timeout() -> void:
-	$Ball.freeze = false
+	ball.freeze = false
 	$HUD/ReadyLabel.hide()
+
+
+func _on_start_timer_timeout() -> void:
+	pass # Replace with function body.

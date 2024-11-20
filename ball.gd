@@ -5,18 +5,24 @@ var initial_velocity = Vector2(randf_range(-300,300),randf_range(-200,-300))
 var initial_speed = 300
 var screen_size
 var max_speed_multiplier = 1
+var linear_velocity_low_limit = 5
+var max_angle = deg_to_rad(180)
+var add_angle = randf_range(45,90)
 
 func _ready():
 	$ContactsTimer.start()
 	screen_size = get_viewport_rect().size
 	
-func _process(_float) -> void:
-	if abs(linear_velocity.y) <= abs(1):
+func _process(delta) -> void:
+	if abs(linear_velocity.y) <= abs(linear_velocity_low_limit):
 		linear_velocity.y = randf_range(-200,-300)
-	if abs(linear_velocity.x) <= abs(1):
+	if abs(linear_velocity.x) <= abs(linear_velocity_low_limit):
 		linear_velocity.x = randf_range(-100,-100)
-
+	
 func _on_body_entered(body):
+	print(linear_velocity)
+	if abs(linear_velocity.y) - 18 <= abs(18) :
+		linear_velocity.y += add_angle
 	if body is TileMap:
 		print("tile")
 		var collision_point = position
