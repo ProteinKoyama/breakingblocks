@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://cklv1i7s2rn0m"]
+[gd_scene load_steps=13 format=3 uid="uid://cklv1i7s2rn0m"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_fdahg"]
-[ext_resource type="PackedScene" uid="uid://cnfbvpsptq27f" path="res://block.tscn" id="2_qde4a"]
 [ext_resource type="PackedScene" uid="uid://78gr5wipyaj1" path="res://paddle.tscn" id="3_eyea6"]
 [ext_resource type="Script" path="res://HUD.gd" id="5_cm5b1"]
 [ext_resource type="PackedScene" uid="uid://bwiyb5ullengg" path="res://ball.tscn" id="6_4mech"]
@@ -19,21 +18,20 @@ friction = 0.0
 bounce = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ib28y"]
-size = Vector2(14.875, 666.875)
+size = Vector2(14.875, 711.875)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_v6gmf"]
 friction = 0.0
 bounce = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i3d75"]
-size = Vector2(501, 82)
+size = Vector2(501, 44)
 
 [sub_resource type="LabelSettings" id="LabelSettings_anlan"]
 font_size = 50
 
 [node name="Main" type="Node"]
 script = ExtResource("1_fdahg")
-block_scene = ExtResource("2_qde4a")
 
 [node name="WallLayer" type="CanvasLayer" parent="."]
 
@@ -65,21 +63,22 @@ shape = SubResource("RectangleShape2D_ali4k")
 physics_material_override = SubResource("PhysicsMaterial_kin4h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
-position = Vector2(-5.875, 332.563)
+position = Vector2(-8.875, 355.063)
 shape = SubResource("RectangleShape2D_ib28y")
 
 [node name="RightWall" type="StaticBody2D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_v6gmf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
-position = Vector2(490.563, 335.375)
+position = Vector2(489.563, 346.375)
 shape = SubResource("RectangleShape2D_ib28y")
 
 [node name="DeadZone" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeadZone"]
-visibility_layer = 2
-position = Vector2(244, 718)
+light_mask = 0
+visibility_layer = 0
+position = Vector2(244, 737)
 shape = SubResource("RectangleShape2D_i3d75")
 
 [node name="NewGameTimer" type="Timer" parent="."]
@@ -89,10 +88,6 @@ one_shot = true
 script = ExtResource("5_cm5b1")
 
 [node name="MessageTimer" type="Timer" parent="HUD"]
-wait_time = 2.0
-one_shot = true
-
-[node name="StartTimer" type="Timer" parent="HUD"]
 wait_time = 2.0
 one_shot = true
 
@@ -157,6 +152,5 @@ label_settings = SubResource("LabelSettings_anlan")
 [connection signal="body_entered" from="DeadZone" to="." method="_on_dead_zone_body_entered"]
 [connection signal="timeout" from="NewGameTimer" to="." method="_on_new_game_timer_timeout"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
-[connection signal="timeout" from="HUD/StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="pressed" from="HUD/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="HUD/StartButton" to="Ball" method="_on_start_button_pressed"]

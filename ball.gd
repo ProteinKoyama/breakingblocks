@@ -1,6 +1,5 @@
 extends RigidBody2D
 
-@onready var tilemap = $Main/BlockTileMaps
 var initial_velocity = Vector2(randf_range(-300,300),randf_range(-200,-300))
 var initial_speed = 300
 var screen_size
@@ -20,16 +19,10 @@ func _process(delta) -> void:
 		linear_velocity.x = randf_range(-100,-100)
 	
 func _on_body_entered(body):
-	print(linear_velocity)
-	if abs(linear_velocity.y) - 18 <= abs(18) :
+	if abs(linear_velocity.y) - max_angle <= abs(max_angle) :
 		linear_velocity.y += add_angle
-	if body is TileMap:
-		print("tile")
-		var collision_point = position
-		var tile_coords = tilemap.world_to_map(collision_point)
-		if tilemap.get_cell(0, tile_coords) != -1:
-			tilemap.set_cell(0, tile_coords, -1)# タイルを無効化
-			print("タイル削除: ", tile_coords)
+	if body is TileMapLayer:
+		pass
 	if body.is_in_group("Block"):
 		body.queue_free() 
 		linear_velocity = linear_velocity.normalized() * (initial_speed + randf_range(0,50))
