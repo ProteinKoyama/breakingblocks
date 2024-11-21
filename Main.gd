@@ -1,19 +1,17 @@
 extends Node
 @export var block_scene: PackedScene
 @onready var ball = $Ball
-@onready var blocktilemaps = $BlockTileMaps
 
 var score
 var block_spacing = Vector2(100,50)
 var BallInitialSpeed = 300
 
 func game_over():
-	ball.hide()
-	$HUD/StartButton.show()
 	$HUD/GameoverLabel.show()
-	
+	ball.hide()
+	$HUD/RetryButton.show()	
 func _ready():
-	print(ball.linear_velocity)
+	$HUD/RetryButton.hide()
 	$HUD/GameoverLabel.hide()
 	$HUD/ReadyLabel.hide()
 	score = 0
@@ -52,3 +50,7 @@ func _on_dead_zone_body_entered(body):
 func _on_new_game_timer_timeout() -> void:
 	ball.freeze = false
 	$HUD/ReadyLabel.hide()
+
+
+func _on_retry_button_pressed() -> void:
+	get_tree().reload_current_scene()

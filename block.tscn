@@ -5,16 +5,17 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q8oni"]
 size = Vector2(52, 12.5)
 
-[node name="Block" type="StaticBody2D" groups=["Block"]]
-collision_mask = 2
+[node name="Block" type="Node2D"]
 script = ExtResource("1_5ujm4")
 metadata/_edit_group_ = true
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Block"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(25, 4.75)
+shape = SubResource("RectangleShape2D_q8oni")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
 offset_right = 50.0
 offset_bottom = 10.0
 color = Color(0.545098, 0.721569, 0.87451, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(25, 4.75)
-shape = SubResource("RectangleShape2D_q8oni")

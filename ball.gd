@@ -22,7 +22,7 @@ func _on_body_entered(body):
 	if abs(linear_velocity.y) - max_angle <= abs(max_angle) :
 		linear_velocity.y += add_angle
 	if body is TileMapLayer:
-		pass
+		body.queue_free()
 	if body.is_in_group("Block"):
 		body.queue_free() 
 		linear_velocity = linear_velocity.normalized() * (initial_speed + randf_range(0,50))
