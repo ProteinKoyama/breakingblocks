@@ -14,7 +14,7 @@ func _ready():
 	
 func _process(delta) -> void:
 	if abs(linear_velocity.y) <= abs(linear_velocity_low_limit):
-		linear_velocity.y = randf_range(-200,-300)
+		linear_velocity.y = randf_range(-400,-500)
 	if abs(linear_velocity.x) <= abs(linear_velocity_low_limit):
 		linear_velocity.x = randf_range(-100,-100)
 	
@@ -22,7 +22,9 @@ func _on_body_entered(body):
 	if abs(linear_velocity.y) - max_angle <= abs(max_angle) :
 		linear_velocity.y += add_angle
 	if body is TileMapLayer:
-		body.queue_free()
+		print(body.local_to_map(position))
+		var pos = body.local_to_map(position)
+		#body.erase_cell(pos)
 	if body.is_in_group("Block"):
 		body.queue_free() 
 		linear_velocity = linear_velocity.normalized() * (initial_speed + randf_range(0,50))

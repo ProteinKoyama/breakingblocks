@@ -44,13 +44,10 @@ script = ExtResource("1_fdahg")
 [node name="Paddle" parent="." instance=ExtResource("3_eyea6")]
 
 [node name="BallSpawnPosition" type="Marker2D" parent="."]
-position = Vector2(240, 350)
+position = Vector2(240, 300)
 
 [node name="PadleStartPosition" type="Marker2D" parent="."]
 position = Vector2(240, 600)
-
-[node name="BlockLinePosition" type="Marker2D" parent="."]
-position = Vector2(50, 50)
 
 [node name="AboveWall" type="StaticBody2D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_vfbrh")
