@@ -25,7 +25,7 @@ friction = 0.0
 bounce = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i3d75"]
-size = Vector2(501, 44)
+size = Vector2(473.5, 77)
 
 [sub_resource type="LabelSettings" id="LabelSettings_anlan"]
 font_size = 50
@@ -75,7 +75,7 @@ shape = SubResource("RectangleShape2D_ib28y")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeadZone"]
 light_mask = 0
 visibility_layer = 0
-position = Vector2(244, 737)
+position = Vector2(240.25, 722.5)
 shape = SubResource("RectangleShape2D_i3d75")
 
 [node name="NewGameTimer" type="Timer" parent="."]
