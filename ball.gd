@@ -15,9 +15,10 @@ func _ready():
 func int_process(delta) -> void:
 	pass
 func _on_body_entered(body):
-	if body is TileMapLayer:
-		var pos = body.local_to_map(position)
-		
+	#if body is TileMapLayer:
+		#var pos = body.local_to_map(position)
+		#body.erase_cell(pos)
+		#print(body.get_cell_source_id(pos))
 	if body.is_in_group("Block"):
 		body.queue_free()
 		linear_velocity = linear_velocity.normalized() * (initial_speed + randf_range(0,50))
@@ -64,3 +65,7 @@ func _on_start_button_pressed():
 
 func _on_contacts_timer_timeout() -> void:
 	pass
+
+func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
+	if body is TileMapLayer:
+		body.erase_cell(body.get_coords_for_body_rid(body_rid))
