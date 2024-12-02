@@ -14,6 +14,10 @@ func _ready():
 	$HUD/RetryButton.hide()
 	$HUD/GameoverLabel.hide()
 	$HUD/ReadyLabel.hide()
+	var tilemap_children =$TileMapLayers.get_children()
+	for child in tilemap_children:
+		child.enabled = false
+	$TileMapLayers/Layer1.enabled = true
 	score = 0
 	ball.position = $BallSpawnPosition.position
 	$Paddle.hide()
@@ -35,6 +39,7 @@ func new_game():
 	ball.show()
 	$Paddle.position = $PadleStartPosition.position - ( $Paddle/ColorRect.size / 2 )
 	$Paddle.show()
+
 
 func _process(_delta):
 	
