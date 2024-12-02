@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://cc4i88qnwhy8k"]
 
-[ext_resource type="Script" path="res://block_tile_map.gd" id="1_e22wr"]
+[ext_resource type="Script" path="res://tile_map_layers.gd" id="1_e22wr"]
 [ext_resource type="Texture2D" uid="uid://b2asdlnfnho0x" path="res://blocktile.png" id="1_stndy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3hkuo"]
@@ -15,7 +15,7 @@ physics_layer_0/collision_layer = 1
 physics_layer_1/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_3hkuo")
 
-[node name="BlockTileMaps" type="Node2D"]
+[node name="TileMapLayers" type="Node2D"]
 physics_interpolation_mode = 1
 script = ExtResource("1_e22wr")
 
@@ -28,5 +28,6 @@ collision_visibility_mode = 1
 [node name="Layer2" type="TileMapLayer" parent="."]
 scale = Vector2(3, 1)
 tile_map_data = PackedByteArray("AAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAABAAUAAAAAAAAAAAABAAYAAAAAAAAAAAABAAcAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAACAAQAAAAAAAAAAAACAAUAAAAAAAAAAAACAAYAAAAAAAAAAAACAAcAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAADAAQAAAAAAAAAAAADAAUAAAAAAAAAAAADAAYAAAAAAAAAAAADAAcAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAYAAAAAAAAAAAAEAAcAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAAFAAYAAAAAAAAAAAAFAAcAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAAAAAAGAAYAAAAAAAAAAAAGAAcAAAAAAAAAAAA=")
+enabled = false
 tile_set = SubResource("TileSet_2inoh")
 collision_visibility_mode = 1

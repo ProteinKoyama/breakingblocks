@@ -1,31 +1,27 @@
 [gd_scene load_steps=5 format=3 uid="uid://bwiyb5ullengg"]
 
 [ext_resource type="Script" path="res://ball.gd" id="1_8f1j3"]
-[ext_resource type="Texture2D" uid="uid://chucmj4py3qdn" path="res://playerGrey_up1.png" id="1_pg50m"]
+[ext_resource type="Texture2D" uid="uid://dgpd8fr37gu0q" path="res://ball.png" id="2_pvtbp"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lpqpy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kyj15"]
-radius = 14.4222
+radius = 9.21954
 
 [node name="Ball" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_lpqpy")
 gravity_scale = 0.0
 continuous_cd = 1
 contact_monitor = true
-max_contacts_reported = 2
+max_contacts_reported = 1
 script = ExtResource("1_8f1j3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_pg50m")
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_pvtbp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kyj15")
 
-[node name="ContactTimer" type="Timer" parent="."]
-process_callback = 0
-
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
-[connection signal="timeout" from="ContactTimer" to="." method="_on_contacts_timer_timeout"]

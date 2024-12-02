@@ -2,7 +2,7 @@ extends Node
 @export var block_scene: PackedScene
 @onready var ball = $Ball
 
-var score
+var score = 0
 var block_spacing = Vector2(100,50)
 var BallInitialSpeed = 300
 
@@ -37,6 +37,7 @@ func new_game():
 	$Paddle.show()
 
 func _process(_delta):
+	
 	pass
 
 func _on_start_button_pressed():
@@ -54,3 +55,7 @@ func _on_new_game_timer_timeout() -> void:
 
 func _on_retry_button_pressed() -> void:
 	get_tree().reload_current_scene()
+
+func update_score()-> void:
+	$HUD/ScoreLabel.text = str(score)
+	pass

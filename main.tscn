@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://78gr5wipyaj1" path="res://paddle.tscn" id="3_eyea6"]
 [ext_resource type="Script" path="res://HUD.gd" id="5_cm5b1"]
 [ext_resource type="PackedScene" uid="uid://bwiyb5ullengg" path="res://ball.tscn" id="6_4mech"]
-[ext_resource type="PackedScene" uid="uid://cc4i88qnwhy8k" path="res://block_tile_map.tscn" id="6_5ldhk"]
+[ext_resource type="PackedScene" uid="uid://cc4i88qnwhy8k" path="res://tile_map_layers.tscn" id="6_5ldhk"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vfbrh"]
 friction = 0.0
@@ -157,7 +157,7 @@ label_settings = SubResource("LabelSettings_anlan")
 
 [node name="Ball" parent="." instance=ExtResource("6_4mech")]
 
-[node name="BlockTileMaps" parent="." instance=ExtResource("6_5ldhk")]
+[node name="TileMapLayers" parent="." instance=ExtResource("6_5ldhk")]
 
 [connection signal="body_entered" from="DeadZone" to="." method="_on_dead_zone_body_entered"]
 [connection signal="timeout" from="NewGameTimer" to="." method="_on_new_game_timer_timeout"]
