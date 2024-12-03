@@ -1,5 +1,7 @@
 extends RigidBody2D
 
+signal block_broke
+
 var initial_velocity = Vector2(randf_range(-3,3),randf_range(-2,-3))
 var initial_speed = 6
 var screen_size
@@ -16,6 +18,7 @@ func _process(delta) -> void:
 func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
 	if body is TileMapLayer:
 		body.erase_cell(body.get_coords_for_body_rid(body_rid))
+		block_broke.emit()
 func _on_body_entered(body):
 		pass
 func _integrate_forces(_state):

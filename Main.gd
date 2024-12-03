@@ -10,10 +10,13 @@ func game_over():
 	$HUD/GameoverLabel.show()
 	ball.hide()
 	$HUD/RetryButton.show()	
+	$HUD/ScoreResultLabel.text = str(score)
+	$HUD/ScoreResultLabel.show()
 func _ready():
 	$HUD/RetryButton.hide()
 	$HUD/GameoverLabel.hide()
 	$HUD/ReadyLabel.hide()
+	$HUD/ScoreResultLabel.hide()
 	var tilemap_children =$TileMapLayers.get_children()
 	for child in tilemap_children:
 		child.enabled = false
@@ -64,3 +67,9 @@ func _on_retry_button_pressed() -> void:
 func update_score()-> void:
 	$HUD/ScoreLabel.text = str(score)
 	pass
+
+
+func _on_ball_block_broke() -> void:
+	score += 100
+	update_score()
+	print("test")

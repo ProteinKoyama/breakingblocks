@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cklv1i7s2rn0m"]
+[gd_scene load_steps=15 format=3 uid="uid://cklv1i7s2rn0m"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_fdahg"]
 [ext_resource type="PackedScene" uid="uid://78gr5wipyaj1" path="res://paddle.tscn" id="3_eyea6"]
@@ -27,7 +27,14 @@ bounce = 1.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i3d75"]
 size = Vector2(473.5, 77)
 
+[sub_resource type="LabelSettings" id="LabelSettings_5pf6k"]
+font_size = 24
+
 [sub_resource type="LabelSettings" id="LabelSettings_anlan"]
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_ounqy"]
+line_spacing = 2.0
 font_size = 50
 
 [node name="Main" type="Node"]
@@ -89,11 +96,13 @@ wait_time = 2.0
 one_shot = true
 
 [node name="ScoreLabel" type="Label" parent="HUD"]
-offset_top = 30.0
-offset_right = 40.0
-offset_bottom = 56.0
+offset_left = 410.0
+offset_top = 2.0
+offset_right = 469.0
+offset_bottom = 36.0
 text = "0"
-horizontal_alignment = 1
+label_settings = SubResource("LabelSettings_5pf6k")
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="StartButton" type="Button" parent="HUD"]
@@ -130,8 +139,19 @@ offset_right = 46.0
 offset_bottom = -41.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "GAME OVER"
+text = "GAME OVER
+YOUR SCORE"
 label_settings = SubResource("LabelSettings_anlan")
+horizontal_alignment = 1
+
+[node name="ScoreResultLabel" type="Label" parent="HUD"]
+offset_left = 186.0
+offset_top = 361.0
+offset_right = 296.0
+offset_bottom = 435.0
+text = "0"
+label_settings = SubResource("LabelSettings_ounqy")
+horizontal_alignment = 1
 
 [node name="OparatingLabel" type="Label" parent="HUD"]
 offset_left = 395.0
@@ -165,3 +185,4 @@ label_settings = SubResource("LabelSettings_anlan")
 [connection signal="pressed" from="HUD/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="HUD/StartButton" to="Ball" method="_on_start_button_pressed"]
 [connection signal="pressed" from="HUD/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="block_broke" from="Ball" to="." method="_on_ball_block_broke"]
