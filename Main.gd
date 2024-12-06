@@ -26,7 +26,7 @@ func tilemap_set():
 	var tilemap_children =$TileMapLayers.get_children()
 	for child in tilemap_children:
 		child.enabled = false
-	tilemap_children[Grobal.stage].enabled = true
+	tilemap_children[stage].enabled = true
 
 func _process(_delta):
 	if $TileMapLayers.get_children()[stage].get_used_cells() == [] and !clear_flag:
