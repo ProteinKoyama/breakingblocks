@@ -1,6 +1,5 @@
 extends CharacterBody2D
 signal hit
-
 @export var speed = 200
 var screen_size
 var character_size= Vector2.ZERO

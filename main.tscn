@@ -27,11 +27,11 @@ bounce = 1.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i3d75"]
 size = Vector2(473.5, 77)
 
-[sub_resource type="LabelSettings" id="LabelSettings_5pf6k"]
-font_size = 24
-
 [sub_resource type="LabelSettings" id="LabelSettings_anlan"]
 font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_5pf6k"]
+font_size = 24
 
 [sub_resource type="LabelSettings" id="LabelSettings_ounqy"]
 line_spacing = 2.0
@@ -85,6 +85,8 @@ visibility_layer = 0
 position = Vector2(240.25, 722.5)
 shape = SubResource("RectangleShape2D_i3d75")
 
+[node name="ClearMarginTimer" type="Timer" parent="."]
+
 [node name="NewGameTimer" type="Timer" parent="."]
 one_shot = true
 
@@ -94,16 +96,6 @@ script = ExtResource("5_cm5b1")
 [node name="MessageTimer" type="Timer" parent="HUD"]
 wait_time = 2.0
 one_shot = true
-
-[node name="ScoreLabel" type="Label" parent="HUD"]
-offset_left = 410.0
-offset_top = 2.0
-offset_right = 469.0
-offset_bottom = 36.0
-text = "0"
-label_settings = SubResource("LabelSettings_5pf6k")
-horizontal_alignment = 2
-vertical_alignment = 1
 
 [node name="StartButton" type="Button" parent="HUD"]
 anchors_preset = 8
@@ -150,6 +142,16 @@ grow_vertical = 2
 text = "GAME OVER"
 label_settings = SubResource("LabelSettings_anlan")
 horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+offset_left = 410.0
+offset_top = 2.0
+offset_right = 469.0
+offset_bottom = 36.0
+text = "0"
+label_settings = SubResource("LabelSettings_5pf6k")
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="StageClearLabel" type="Label" parent="HUD"]
 anchors_preset = 8
@@ -205,15 +207,32 @@ grow_vertical = 2
 text = "READY"
 label_settings = SubResource("LabelSettings_anlan")
 
+[node name="GameClearLabel" type="Label" parent="HUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -154.0
+offset_top = -142.5
+offset_right = 154.0
+offset_bottom = -73.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "GAME CLEAR"
+label_settings = SubResource("LabelSettings_anlan")
+
 [node name="Ball" parent="." instance=ExtResource("6_4mech")]
 
 [node name="TileMapLayers" parent="." instance=ExtResource("6_5ldhk")]
 
 [connection signal="body_entered" from="DeadZone" to="." method="_on_dead_zone_body_entered"]
+[connection signal="timeout" from="ClearMarginTimer" to="." method="_on_clear_margin_timer_timeout"]
 [connection signal="timeout" from="NewGameTimer" to="." method="_on_new_game_timer_timeout"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="pressed" from="HUD/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="HUD/StartButton" to="Ball" method="_on_start_button_pressed"]
 [connection signal="pressed" from="HUD/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="HUD/NextButton" to="." method="_on_next_button_pressed"]
 [connection signal="pressed" from="HUD/NextButton" to="." method="_on_retry_button_pressed"]
 [connection signal="block_broke" from="Ball" to="." method="_on_ball_block_broke"]
