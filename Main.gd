@@ -8,19 +8,15 @@ var ball_initial_speed = 300
 var clear_flag:bool = false
 
 func _ready():
-	$HUD/GameClearLabel.hide()
 	$HUD/RetryButton.hide()
 	$HUD/NextButton.hide()
-	$HUD/GameoverLabel.hide()
-	$HUD/StageClearLabel.hide()
-	$HUD/ReadyLabel.hide()
+	$HUD/MessageLabel.hide()
 	$HUD/ScoreResultLabel.hide()
 	tilemap_set()
 	$Paddle.hide()
 	ball.hide()
 	$Paddle.position = $PadleStartPosition.position - ( $Paddle/ColorRect.size / 2 )
 	$Paddle.show()
-	$HUD/NextButton.hide()
 
 func tilemap_set():
 	var tilemap_children =$TileMapLayers.get_children()
@@ -29,15 +25,18 @@ func tilemap_set():
 	tilemap_children[stage].enabled = true
 
 func _process(_delta):
-	if $TileMapLayers.get_children()[stage].get_used_cells() == [] and !clear_flag:
+	if $TileMapLayers.get_children()[stage].get_used_cells() == [] and !clear_flag and score >= 100:
 		stage_clear()
 
 func game_over():
-	$HUD/GameoverLabel.show()
+	$HUD/MessageLabel.text = "GAME OVER"
+	$HUD/MessageLabel.show()
 	ball.hide()
 	$HUD/RetryButton.show()
 	$HUD/ScoreResultLabel.text = "SCORE: " + str(score)
 	$HUD/ScoreResultLabel.show()
+	PhysicsServer2D.set_active(false)
+	clear_flag = true
 
 func _physics_process(delta):
 	if !ball.visible:
@@ -47,18 +46,20 @@ func _physics_process(delta):
 func new_game():
 	tilemap_set()
 	ball.show()
-	$NewGameTimer.start()
+	$HUD/NextButton.hide()
+	$HUD/RetryButton.hide()
+	$HUD/ScoreResultLabel.hide()
+	$HUD/MessageLabel.hide()
+	$HUD/MessageLabel.text = "READY"
+	$HUD/MessageLabel.show()
 	PhysicsServer2D.set_active(false)
-	$HUD/ReadyLabel.show()
-	$HUD/StageClearLabel.hide()
+	$NewGameTimer.start()
 	ball.initial_speed = ball_initial_speed
-	if $HUD/GameoverLabel.visible:
-		$HUD/GameoverLabel.hide()
 	if clear_flag:
 		$ClearMarginTimer.start()
-		
 func stage_clear():
-	$HUD/StageClearLabel.show()
+	$HUD/MessageLabel.text = "STAGE CLEAR"
+	$HUD/MessageLabel.show()
 	PhysicsServer2D.set_active(false)
 	$HUD/ScoreResultLabel.text = "SCORE: " + str(score)
 	$HUD/ScoreResultLabel.show()
@@ -74,8 +75,8 @@ func _on_start_button_pressed():
 	new_game()
 
 func _on_retry_button_pressed() -> void:
-	get_tree().reload_current_scene()
-
+	#get_tree().reload_current_scene()
+	new_game()
 func _on_next_button_pressed() -> void:
 	new_game()
 
@@ -89,4 +90,8 @@ func _on_clear_margin_timer_timeout() -> void:
 
 func _on_new_game_timer_timeout() -> void:
 	PhysicsServer2D.set_active(true)
-	$HUD/ReadyLabel.hide()
+	$HUD/MessageLabel.hide()
+
+
+func _on_exit_button_pressed() -> void:
+	get_tree().quit()

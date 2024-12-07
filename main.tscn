@@ -18,17 +18,14 @@ friction = 0.0
 bounce = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ib28y"]
-size = Vector2(14.875, 711.875)
+size = Vector2(14.875, 619.875)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_v6gmf"]
 friction = 0.0
 bounce = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i3d75"]
-size = Vector2(473.5, 77)
-
-[sub_resource type="LabelSettings" id="LabelSettings_anlan"]
-font_size = 50
+size = Vector2(748.146, 86.0456)
 
 [sub_resource type="LabelSettings" id="LabelSettings_5pf6k"]
 font_size = 24
@@ -37,16 +34,11 @@ font_size = 24
 line_spacing = 2.0
 font_size = 50
 
+[sub_resource type="LabelSettings" id="LabelSettings_anlan"]
+font_size = 50
+
 [node name="Main" type="Node"]
 script = ExtResource("1_fdahg")
-
-[node name="WallLayer" type="CanvasLayer" parent="."]
-
-[node name="BlockLayer" type="CanvasLayer" parent="."]
-
-[node name="MainLayer" type="CanvasLayer" parent="."]
-
-[node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="Paddle" parent="." instance=ExtResource("3_eyea6")]
 
@@ -67,10 +59,11 @@ shape = SubResource("RectangleShape2D_ali4k")
 physics_material_override = SubResource("PhysicsMaterial_kin4h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
-position = Vector2(-8.875, 355.063)
+position = Vector2(-8.875, 309.063)
 shape = SubResource("RectangleShape2D_ib28y")
 
 [node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(-9, -41)
 physics_material_override = SubResource("PhysicsMaterial_v6gmf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
@@ -78,11 +71,14 @@ position = Vector2(489.563, 346.375)
 shape = SubResource("RectangleShape2D_ib28y")
 
 [node name="DeadZone" type="Area2D" parent="."]
+light_mask = 0
+visibility_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DeadZone"]
 light_mask = 0
 visibility_layer = 0
-position = Vector2(240.25, 722.5)
+position = Vector2(246.5, 719.313)
+scale = Vector2(0.680348, 0.704587)
 shape = SubResource("RectangleShape2D_i3d75")
 
 [node name="ClearMarginTimer" type="Timer" parent="."]
@@ -92,10 +88,6 @@ one_shot = true
 
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("5_cm5b1")
-
-[node name="MessageTimer" type="Timer" parent="HUD"]
-wait_time = 2.0
-one_shot = true
 
 [node name="StartButton" type="Button" parent="HUD"]
 anchors_preset = 8
@@ -112,10 +104,17 @@ grow_vertical = 2
 text = "Start"
 
 [node name="RetryButton" type="Button" parent="HUD"]
-offset_left = 210.0
-offset_top = 422.0
-offset_right = 270.0
-offset_bottom = 453.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = 60.0
+offset_right = 30.0
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Retry
 "
 
@@ -127,21 +126,19 @@ offset_bottom = 453.0
 text = "Next
 "
 
-[node name="GameoverLabel" type="Label" parent="HUD"]
+[node name="ExitButton" type="Button" parent="HUD"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -46.0
-offset_top = -67.0
-offset_right = 46.0
-offset_bottom = -41.0
+offset_left = -220.0
+offset_top = 283.0
+offset_right = -140.0
+offset_bottom = 323.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "GAME OVER"
-label_settings = SubResource("LabelSettings_anlan")
-horizontal_alignment = 1
+text = "Exit"
 
 [node name="ScoreLabel" type="Label" parent="HUD"]
 offset_left = 410.0
@@ -152,22 +149,6 @@ text = "0"
 label_settings = SubResource("LabelSettings_5pf6k")
 horizontal_alignment = 2
 vertical_alignment = 1
-
-[node name="StageClearLabel" type="Label" parent="HUD"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -161.0
-offset_top = -106.0
-offset_right = 162.0
-offset_bottom = -37.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "STAGE CREAR"
-label_settings = SubResource("LabelSettings_anlan")
-horizontal_alignment = 1
 
 [node name="ScoreResultLabel" type="Label" parent="HUD"]
 anchors_preset = 8
@@ -186,13 +167,13 @@ label_settings = SubResource("LabelSettings_ounqy")
 horizontal_alignment = 1
 
 [node name="OparatingLabel" type="Label" parent="HUD"]
-offset_left = 395.0
-offset_top = 641.0
-offset_right = 466.0
-offset_bottom = 664.0
+offset_left = 25.0
+offset_top = 686.0
+offset_right = 97.0
+offset_bottom = 709.0
 text = "A:左  D:右"
 
-[node name="ReadyLabel" type="Label" parent="HUD"]
+[node name="MessageLabel" type="Label" parent="HUD"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -205,21 +186,6 @@ offset_bottom = -41.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "READY"
-label_settings = SubResource("LabelSettings_anlan")
-
-[node name="GameClearLabel" type="Label" parent="HUD"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -154.0
-offset_top = -142.5
-offset_right = 154.0
-offset_bottom = -73.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "GAME CLEAR"
 label_settings = SubResource("LabelSettings_anlan")
 
 [node name="Ball" parent="." instance=ExtResource("6_4mech")]
@@ -235,4 +201,5 @@ label_settings = SubResource("LabelSettings_anlan")
 [connection signal="pressed" from="HUD/RetryButton" to="." method="_on_retry_button_pressed"]
 [connection signal="pressed" from="HUD/NextButton" to="." method="_on_next_button_pressed"]
 [connection signal="pressed" from="HUD/NextButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="HUD/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="block_broke" from="Ball" to="." method="_on_ball_block_broke"]
