@@ -27,5 +27,6 @@ shape = SubResource("CircleShape2D_kyj15")
 [node name="BallBrokeSE" type="AudioStreamPlayer2D" parent="."]
 scale = Vector2(0.15, 0.15)
 stream = ExtResource("3_db1dq")
+volume_db = -2.0
 
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

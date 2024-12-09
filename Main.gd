@@ -6,13 +6,18 @@ var score = Grobal.score
 var stage = Grobal.stage
 var ball_initial_speed = 300
 var clear_flag:bool = false
+var pause_opened = true
 
 func _ready():
+	$PauseBackground.hide()
+	$HUD/ExitButton.hide()
+	$HUD/ReturnButton.hide()
 	$HUD/RestartButton.hide()
-	$HUD/RetryButton.hide()
+	$HUD/ContinueButton.hide()
 	$HUD/NextButton.hide()
 	$HUD/MessageLabel.hide()
 	$HUD/ScoreResultLabel.hide()
+	$HUD/PauseButton.hide()
 	tilemap_set()
 	$Paddle.hide()
 	ball.hide()
@@ -34,12 +39,13 @@ func _process(_delta):
 		
 func new_game():
 	print(ball.global_position)
-	
+	ball.global_position = $BallSpawnPosition.global_position
 	print(ball.global_position)
 	tilemap_set()
 	ball.show()
+	$HUD/PauseButton.show()
 	$HUD/NextButton.hide()
-	$HUD/RetryButton.hide()
+	$HUD/ContinueButton.hide()
 	$HUD/ScoreResultLabel.hide()
 	$HUD/MessageLabel.hide()
 	$HUD/MessageLabel.text = "READY"
@@ -47,7 +53,6 @@ func new_game():
 	PhysicsServer2D.set_active(false)
 	$NewGameTimer.start()
 	ball.initial_speed = ball_initial_speed
-	ball.global_position = $BallSpawnPosition.global_position
 	if clear_flag:
 		$ClearMarginTimer.start()
 
@@ -56,8 +61,9 @@ func game_over():
 	$GameOverSE.play()
 	$HUD/MessageLabel.text = "GAME OVER"
 	$HUD/MessageLabel.show()
-	ball.hide()
-	$HUD/RetryButton.show()
+	$HUD/PauseButton.hide()
+	$HUD/ExitButton.show()
+	$HUD/ContinueButton.show()
 	$HUD/ScoreResultLabel.text = "SCORE: " + str(score)
 	$HUD/ScoreResultLabel.show()
 	PhysicsServer2D.set_active(false)
@@ -77,18 +83,20 @@ func stage_clear():
 		$HUD/RestartButton.show()
 	else:
 		$HUD/NextButton.show()
-		
 
 func _on_dead_zone_body_entered(body):
-	
 	game_over()
 
 func _on_start_button_pressed():
+	$HUD/PauseButton.show()
 	$HUD/StartButton.hide()
 	$ButtonSE.play()
 	new_game()
 
-func _on_retry_button_pressed() -> void:
+func _on_continue_button_pressed() -> void:
+	score = 0
+	$HUD/ScoreLabel.text = str(score)
+	$HUD/ExitButton.hide()
 	$ButtonSE.play()
 	$BGM.play()
 	new_game()
@@ -115,3 +123,25 @@ func _on_exit_button_pressed() -> void:
 
 func _on_restart_button_pressed() -> void:
 	get_tree().reload_current_scene()
+
+
+func _on_pause_button_pressed() -> void:
+	if !pause_opened:
+		PhysicsServer2D.set_active(true)
+		$PauseBackground.hide()
+		$HUD/ExitButton.hide()
+		$HUD/ReturnButton.hide()
+		pause_opened = true
+	elif pause_opened :
+		PhysicsServer2D.set_active(false)
+		$PauseBackground.show()
+		$HUD/ExitButton.show()
+		$HUD/ReturnButton.show()
+		pause_opened = false
+
+func _on_return_button_pressed() -> void:
+	PhysicsServer2D.set_active(true)
+	$PauseBackground.hide()
+	$HUD/ExitButton.hide()
+	$HUD/ReturnButton.hide()
+	pause_opened = true
