@@ -8,6 +8,7 @@ var ball_initial_speed = 300
 var clear_flag:bool = false
 
 func _ready():
+	$HUD/RestartButton.hide()
 	$HUD/RetryButton.hide()
 	$HUD/NextButton.hide()
 	$HUD/MessageLabel.hide()
@@ -17,6 +18,7 @@ func _ready():
 	ball.hide()
 	$Paddle.position = $PadleStartPosition.position - ( $Paddle/ColorRect.size / 2 )
 	$Paddle.show()
+	PhysicsServer2D.set_active(false)
 
 func tilemap_set():
 	var tilemap_children =$TileMapLayers.get_children()
@@ -25,25 +27,15 @@ func tilemap_set():
 	tilemap_children[stage].enabled = true
 
 func _process(_delta):
-	if $TileMapLayers.get_children()[stage].get_used_cells() == [] and !clear_flag and score >= 100:
+	if $TileMapLayers.get_child_count() <= stage:
 		stage_clear()
-
-func game_over():
-	$HUD/MessageLabel.text = "GAME OVER"
-	$HUD/MessageLabel.show()
-	ball.hide()
-	$HUD/RetryButton.show()
-	$HUD/ScoreResultLabel.text = "SCORE: " + str(score)
-	$HUD/ScoreResultLabel.show()
-	PhysicsServer2D.set_active(false)
-	clear_flag = true
-
-func _physics_process(delta):
-	if !ball.visible:
-		ball.position = $BallSpawnPosition.position
-		ball.linear_velocity = Vector2.ZERO
-
+	elif $TileMapLayers.get_children()[stage].get_used_cells() == [] and !clear_flag and score >= 100:
+		stage_clear()
+		
 func new_game():
+	print(ball.global_position)
+	
+	print(ball.global_position)
 	tilemap_set()
 	ball.show()
 	$HUD/NextButton.hide()
@@ -55,29 +47,54 @@ func new_game():
 	PhysicsServer2D.set_active(false)
 	$NewGameTimer.start()
 	ball.initial_speed = ball_initial_speed
+	ball.global_position = $BallSpawnPosition.global_position
 	if clear_flag:
 		$ClearMarginTimer.start()
+
+func game_over():
+	$BGM.stop()
+	$GameOverSE.play()
+	$HUD/MessageLabel.text = "GAME OVER"
+	$HUD/MessageLabel.show()
+	ball.hide()
+	$HUD/RetryButton.show()
+	$HUD/ScoreResultLabel.text = "SCORE: " + str(score)
+	$HUD/ScoreResultLabel.show()
+	PhysicsServer2D.set_active(false)
+	clear_flag = true
+
 func stage_clear():
+	$StageClearSE.play()
 	$HUD/MessageLabel.text = "STAGE CLEAR"
 	$HUD/MessageLabel.show()
 	PhysicsServer2D.set_active(false)
 	$HUD/ScoreResultLabel.text = "SCORE: " + str(score)
 	$HUD/ScoreResultLabel.show()
-	$HUD/NextButton.show()
 	clear_flag = true
 	stage += 1
+	if $TileMapLayers.get_child_count() <= stage:
+		$HUD/MessageLabel.text = "GAME CLEAR"
+		$HUD/RestartButton.show()
+	else:
+		$HUD/NextButton.show()
+		
 
 func _on_dead_zone_body_entered(body):
+	
 	game_over()
 
 func _on_start_button_pressed():
 	$HUD/StartButton.hide()
+	$ButtonSE.play()
 	new_game()
 
 func _on_retry_button_pressed() -> void:
-	#get_tree().reload_current_scene()
+	$ButtonSE.play()
+	$BGM.play()
 	new_game()
+	
 func _on_next_button_pressed() -> void:
+	$ButtonSE.play()
 	new_game()
 
 func _on_ball_block_broke() -> void:
@@ -92,6 +109,9 @@ func _on_new_game_timer_timeout() -> void:
 	PhysicsServer2D.set_active(true)
 	$HUD/MessageLabel.hide()
 
-
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_restart_button_pressed() -> void:
+	get_tree().reload_current_scene()

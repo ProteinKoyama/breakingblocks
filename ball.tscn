@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwiyb5ullengg"]
+[gd_scene load_steps=6 format=3 uid="uid://bwiyb5ullengg"]
 
 [ext_resource type="Script" path="res://ball.gd" id="1_8f1j3"]
-[ext_resource type="Texture2D" uid="uid://dgpd8fr37gu0q" path="res://ball.png" id="2_pvtbp"]
+[ext_resource type="Texture2D" uid="uid://dgpd8fr37gu0q" path="res://asset/ball.png" id="2_pvtbp"]
+[ext_resource type="AudioStream" uid="uid://yfjvrh0qsoyv" path="res://asset/btn03.mp3" id="3_db1dq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lpqpy"]
 
@@ -23,5 +24,8 @@ texture = ExtResource("2_pvtbp")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kyj15")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="BallBrokeSE" type="AudioStreamPlayer2D" parent="."]
+scale = Vector2(0.15, 0.15)
+stream = ExtResource("3_db1dq")
+
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

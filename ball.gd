@@ -19,8 +19,9 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 	if body is TileMapLayer:
 		body.erase_cell(body.get_coords_for_body_rid(body_rid))
 		block_broke.emit()
-func _on_body_entered(body):
-		pass
+		if linear_velocity.x < linear_velocity_low_limit:
+			linear_velocity *= -1.2
+	$BallBrokeSE.play()
 func _integrate_forces(_state):
 	var tmp_velocity = abs(linear_velocity)
 	linear_velocity = linear_velocity.normalized() * initial_speed
