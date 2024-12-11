@@ -36,11 +36,17 @@ func _process(_delta):
 		stage_clear()
 	elif $TileMapLayers.get_children()[stage].get_used_cells() == [] and !clear_flag and score >= 100:
 		stage_clear()
-		
+	if pause_opened:
+		var ev = InputEventAction.new()
+		ev.action = "move_left"
+		ev.pressed = true
+		Input.parse_input_event(ev)
+		ev.action = "move_right"
+		ev.pressed = true
+		Input.parse_input_event(ev)
 func new_game():
-	print(ball.global_position)
+	add_child(ball)
 	ball.global_position = $BallSpawnPosition.global_position
-	print(ball.global_position)
 	tilemap_set()
 	ball.show()
 	$HUD/PauseButton.show()
@@ -85,6 +91,7 @@ func stage_clear():
 		$HUD/NextButton.show()
 
 func _on_dead_zone_body_entered(body):
+	ball.get_parent().remove_child(ball)
 	game_over()
 
 func _on_start_button_pressed():
@@ -137,6 +144,8 @@ func _on_pause_button_pressed() -> void:
 		$PauseBackground.show()
 		$HUD/ExitButton.show()
 		$HUD/ReturnButton.show()
+		InputMap.action_erase_events("move_left")
+		InputMap.action_erase_events("move_right")
 		pause_opened = false
 
 func _on_return_button_pressed() -> void:
