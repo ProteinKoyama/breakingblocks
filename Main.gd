@@ -36,14 +36,10 @@ func _process(_delta):
 		stage_clear()
 	elif $TileMapLayers.get_children()[stage].get_used_cells() == [] and !clear_flag and score >= 100:
 		stage_clear()
-	if pause_opened:
-		var ev = InputEventAction.new()
-		ev.action = "move_left"
-		ev.pressed = true
-		Input.parse_input_event(ev)
-		ev.action = "move_right"
-		ev.pressed = true
-		Input.parse_input_event(ev)
+	#if pause_opened:
+		#var ev = InputEventAction.new()
+		#ev.action = "move_left"
+		#ev.pressed = true
 func new_game():
 	add_child(ball)
 	ball.global_position = $BallSpawnPosition.global_position
