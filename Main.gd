@@ -2,6 +2,8 @@ extends Node
 @export var block_scene: PackedScene
 @onready var ball = $Ball
 
+signal pause_signal
+
 var score = Grobal.score
 var stage = Grobal.stage
 var ball_initial_speed = 300
@@ -36,10 +38,7 @@ func _process(_delta):
 		stage_clear()
 	elif $TileMapLayers.get_children()[stage].get_used_cells() == [] and !clear_flag and score >= 100:
 		stage_clear()
-	#if pause_opened:
-		#var ev = InputEventAction.new()
-		#ev.action = "move_left"
-		#ev.pressed = true
+
 func new_game():
 	add_child(ball)
 	ball.global_position = $BallSpawnPosition.global_position
@@ -127,26 +126,24 @@ func _on_exit_button_pressed() -> void:
 func _on_restart_button_pressed() -> void:
 	get_tree().reload_current_scene()
 
-
+func pause_hide_display():
+	PhysicsServer2D.set_active(true)
+	$PauseBackground.hide()
+	$HUD/ExitButton.hide()
+	$HUD/ReturnButton.hide()
+	emit_signal("pause_signal")
+	pause_opened = true
+	
 func _on_pause_button_pressed() -> void:
 	if !pause_opened:
-		PhysicsServer2D.set_active(true)
-		$PauseBackground.hide()
-		$HUD/ExitButton.hide()
-		$HUD/ReturnButton.hide()
-		pause_opened = true
+		pause_hide_display()
 	elif pause_opened :
 		PhysicsServer2D.set_active(false)
 		$PauseBackground.show()
 		$HUD/ExitButton.show()
 		$HUD/ReturnButton.show()
-		InputMap.action_erase_events("move_left")
-		InputMap.action_erase_events("move_right")
+		emit_signal("pause_signal")
 		pause_opened = false
 
 func _on_return_button_pressed() -> void:
-	PhysicsServer2D.set_active(true)
-	$PauseBackground.hide()
-	$HUD/ExitButton.hide()
-	$HUD/ReturnButton.hide()
-	pause_opened = true
+	pause_hide_display()
