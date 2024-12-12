@@ -38,6 +38,7 @@ font_size = 50
 
 [sub_resource type="LabelSettings" id="LabelSettings_anlan"]
 font_size = 50
+outline_size = 4
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="AudioStreamMP3" id="AudioStreamMP3_cs5y1"]
@@ -258,8 +259,8 @@ color = Color(0.07, 0.07, 0.07, 0.313726)
 [connection signal="pressed" from="HUD/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="HUD/StartButton" to="Ball" method="_on_start_button_pressed"]
 [connection signal="pressed" from="HUD/ContinueButton" to="." method="_on_continue_button_pressed"]
-[connection signal="pressed" from="HUD/NextButton" to="." method="_on_retry_button_pressed"]
 [connection signal="pressed" from="HUD/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="HUD/NextButton" to="." method="_on_retry_button_pressed"]
 [connection signal="pressed" from="HUD/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="HUD/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="HUD/ReturnButton" to="." method="_on_return_button_pressed"]

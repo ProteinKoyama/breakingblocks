@@ -8,7 +8,7 @@ var score = Grobal.score
 var stage = Grobal.stage
 var ball_initial_speed = 300
 var clear_flag:bool = false
-var pause_opened = true
+var pause_opened_flag = true
 
 func _ready():
 	$PauseBackground.hide()
@@ -40,7 +40,8 @@ func _process(_delta):
 		stage_clear()
 
 func new_game():
-	add_child(ball)
+	if !has_node("Ball"):
+		add_child(ball)
 	ball.global_position = $BallSpawnPosition.global_position
 	tilemap_set()
 	ball.show()
@@ -132,18 +133,18 @@ func pause_hide_display():
 	$HUD/ExitButton.hide()
 	$HUD/ReturnButton.hide()
 	emit_signal("pause_signal")
-	pause_opened = true
+	pause_opened_flag = true
 	
 func _on_pause_button_pressed() -> void:
-	if !pause_opened:
+	if !pause_opened_flag:
 		pause_hide_display()
-	elif pause_opened :
+	elif pause_opened_flag :
 		PhysicsServer2D.set_active(false)
 		$PauseBackground.show()
 		$HUD/ExitButton.show()
 		$HUD/ReturnButton.show()
 		emit_signal("pause_signal")
-		pause_opened = false
+		pause_opened_flag = false
 
 func _on_return_button_pressed() -> void:
 	pause_hide_display()
